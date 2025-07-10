@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objective Question</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Hide the result section initially */
+        #result-section {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Quiz Question</h1>
+
+        <!-- Question Section -->
+        <div class="mb-6">
+            <p class="text-lg text-gray-700 mb-4">
+                What is the capital of France?
+            </p>
+            <form id="quiz-form" class="space-y-3">
+                <!-- Option A -->
+                <label class="flex items-center bg-gray-50 p-3 rounded-md cursor-pointer hover:bg-gray-100 transition duration-200 ease-in-out">
+                    <input type="radio" name="answer" value="A" class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500 rounded-full">
+                    <span class="ml-3 text-gray-800">A. Berlin</span>
+                </label>
+
+                <!-- Option B -->
+                <label class="flex items-center bg-gray-50 p-3 rounded-md cursor-pointer hover:bg-gray-100 transition duration-200 ease-in-out">
+                    <input type="radio" name="answer" value="B" class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500 rounded-full">
+                    <span class="ml-3 text-gray-800">B. Madrid</span>
+                </label>
+
+                <!-- Option C -->
+                <label class="flex items-center bg-gray-50 p-3 rounded-md cursor-pointer hover:bg-gray-100 transition duration-200 ease-in-out">
+                    <input type="radio" name="answer" value="C" class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500 rounded-full">
+                    <span class="ml-3 text-gray-800">C. Paris</span>
+                </label>
+
+                <!-- Option D -->
+                <label class="flex items-center bg-gray-50 p-3 rounded-md cursor-pointer hover:bg-gray-100 transition duration-200 ease-in-out">
+                    <input type="radio" name="answer" value="D" class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500 rounded-full">
+                    <span class="ml-3 text-gray-800">D. Rome</span>
+                </label>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submit-button" class="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out mt-6 shadow-md">
+                    Submit Answer
+                </button>
+            </form>
+        </div>
+
+        <!-- Result Section (initially hidden) -->
+        <div id="result-section" class="mt-6 p-4 rounded-lg border border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-800 mb-3" id="result-title"></h2>
+            <p class="text-gray-700" id="result-summary"></p>
+        </div>
+    </div>
+
+    <script>
+        // Get references to HTML elements
+        const quizForm = document.getElementById('quiz-form');
+        const submitButton = document.getElementById('submit-button');
+        const resultSection = document.getElementById('result-section');
+        const resultTitle = document.getElementById('result-title');
+        const resultSummary = document.getElementById('result-summary');
+
+        // Pre-uploaded correct answer
+        const correctAnswer = 'C'; // Paris
+
+        // Event listener for form submission
+        quizForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            // Get the selected answer
+            const selectedOption = document.querySelector('input[name="answer"]:checked');
+
+            if (selectedOption) {
+                const userAnswer = selectedOption.value;
+
+                // Compare with the correct answer and display result
+                if (userAnswer === correctAnswer) {
+                    resultTitle.textContent = 'Correct Answer!';
+                    resultTitle.classList.remove('text-red-600');
+                    resultTitle.classList.add('text-green-600');
+                    resultSummary.textContent = 'Paris is indeed the capital of France. It is a major European city and a global center for art, fashion, gastronomy, and culture.';
+                } else {
+                    resultTitle.textContent = 'Incorrect Answer!';
+                    resultTitle.classList.remove('text-green-600');
+                    resultTitle.classList.add('text-red-600');
+                    resultSummary.textContent = `The correct answer is Paris (Option C). Berlin is the capital of Germany, Madrid is the capital of Spain, and Rome is the capital of Italy.`;
+                }
+                // Show the result section
+                resultSection.style.display = 'block';
+            } else {
+                // If no option is selected, provide a message (optional, could be a modal)
+                resultTitle.textContent = 'Please select an option!';
+                resultTitle.classList.remove('text-green-600', 'text-red-600');
+                resultTitle.classList.add('text-yellow-600');
+                resultSummary.textContent = 'You need to choose an answer before submitting.';
+                resultSection.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
